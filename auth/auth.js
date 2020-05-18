@@ -52,3 +52,26 @@ passport.use(
     }
   )
 );
+
+const JWTStrategy = require("passport-jwt").Strategy;
+// extract JWT from the user
+const ExtractJWT = require("passport-jwt").ExtractJwt;
+
+// verify if token from the user us valid
+passport.use(
+  new JWTStrategy(
+    {
+      secretOrKey: "top_secret",
+      // expecting the user to sent the token as parameter
+      jwtFromRequest: ExtractJWT.fromUrlQueryParameter("secret_token"),
+    },
+    async (token, done) => {
+      try {
+        // pass the user details to the middleware
+        return done(null, token.user);
+      } catch (error) {
+        done(error);
+      }
+    }
+  )
+);
