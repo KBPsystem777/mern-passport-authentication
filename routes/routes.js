@@ -16,3 +16,25 @@ router.post(
     });
   }
 );
+
+router.post("/login", async (req, res, next) => {
+  passport.authenticate("login", async (error, user, info) => {
+    try {
+      if (err || !user) {
+        const error = new Error("An error occured!");
+        return next(error);
+      }
+      req.login(user, { session: false }, async (error) => {
+        if (error) return next(error);
+        const body = { _id: user._id, email: user.email };
+        // signing jwt
+        const token = jwt.sign({ user: body }, "top_secret");
+        // sending back the token to the user
+        return res.json({ token });
+      });
+    } catch (error) {
+      return next(error);
+    }
+  })(req, res, next);
+});
+module.exports = router;
