@@ -4,19 +4,23 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
 const UserModel = require("./model/model");
-require("dotenv");
+require("dotenv").config();
 
 const DB = process.env.URI;
+const PORT = 1993 || process.env.PORT;
 
-mongoose
-  .connect(DB, {
-    keepAlive: 1,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(console.log(new Date() + "Mongoose connected!"));
-mongoose.connection.on("error", (error) => console.log(new Date() + error));
-mongoose.Promise = global.Promise;
+// Establish connection to mongoose
+mongoose.connect(DB, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
+
+const connection = mongoose.connection;
+
+connection.once("open", () => {
+  console.log(Date() + ` Database connection established!`);
+});
 
 require("./auth/auth");
 
@@ -39,6 +43,6 @@ app.use((err, req, res, next) => {
   res.json({ error: err });
 });
 
-app.listen(3000, () => {
-  console.log(new Date() + "Server Started!");
+app.listen(PORT, () => {
+  console.log(new Date() + ` Server running on http://localhost:${PORT}`);
 });
