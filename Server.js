@@ -4,9 +4,12 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
 const UserModel = require("./model/model");
+require("dotenv");
+
+const DB = process.env.URI;
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/passport-jwt", {
+  .connect(DB, {
     keepAlive: 1,
     useNewUrlParser: true,
     useUnifiedTopology: true,
