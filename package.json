@@ -4,6 +4,7 @@
   "description": "implementing passportjs on MERN application",
   "main": "Server.js",
   "scripts": {
+    "start": "nodemon Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,5 +19,8 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
