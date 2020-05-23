@@ -30,9 +30,15 @@ const routes = require("./routes/routes");
 const securedRoutes = require("./routes/secured-routes");
 
 app.use("/", routes);
-// securing '/user' route
+
+// securing routes below
 app.use(
   "/user",
+  passport.authenticate("jwt", { session: false }),
+  securedRoutes
+);
+app.use(
+  "/users",
   passport.authenticate("jwt", { session: false }),
   securedRoutes
 );
