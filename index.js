@@ -6,7 +6,7 @@ const app = express();
 const UserModel = require("./model/model");
 require("dotenv").config();
 
-const DB = process.env.URI;
+const DB = process.env.MONGODB_URI_PASSP || process.env.mongodb_uri_passp;
 const PORT = 1993 || process.env.PORT;
 
 // Establish connection to mongoose
