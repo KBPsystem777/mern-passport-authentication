@@ -30,7 +30,11 @@ router.post("/login", async (req, res, next) => {
         // signing jwt
         const token = jwt.sign({ user: body }, "top_secret");
         // sending back the token to the user
-        return res.json({ token });
+        return res.json({
+          status: "SUCCESS",
+          token: token,
+          generated: new Date(),
+        });
       });
     } catch (error) {
       return next(error);
