@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [{ "src": "index.js", "use": "@now/node-server" }],
+  "routes": [
+    {
+      "src": "/signup",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/login",
+      "dest": "/index.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/user/users",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/user/profile",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    }
+  ]
+}
