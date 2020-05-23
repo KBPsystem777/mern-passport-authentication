@@ -4,7 +4,7 @@
   "description": "implementing passportjs on MERN application",
   "main": "Server.js",
   "scripts": {
-    "start": "nodemon Server.js",
+    "start": "nodemon index .js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -18,7 +18,8 @@
     "mongoose": "^5.9.14",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "nodemon": "^2.0.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
