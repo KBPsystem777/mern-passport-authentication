@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "alias": "kbpsystem-auth",
+  "env": { "MONGODB_URI": "@mongodb_uri_passp" },
   "builds": [{ "src": "index.js", "use": "@now/node-server" }],
   "routes": [
     {
