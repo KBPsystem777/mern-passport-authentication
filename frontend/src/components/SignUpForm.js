@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import qs from "qs";
 
 require("dotenv").config();
 
-const AUTH_SIGNUP_ADDRESS = process.env.SIGNUP_URL;
+const AUTH_SIGNUP_ADDRESS =
+  process.env.SIGNUP_URL || "https://kbp-auth.now.sh/signup";
 
 function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -13,7 +16,7 @@ function SignUpForm() {
     e.preventDefault();
     axios({
       method: "post",
-      url: AUTH_LOGIN_ADDRESS,
+      url: AUTH_SIGNUP_ADDRESS,
       data: qs.stringify({
         email: email,
         password: password,
@@ -21,13 +24,13 @@ function SignUpForm() {
       headers: {
         "content-type": "application/x-www-form-urlencoded;charset=utf-8",
       },
-    }).then((res) => console.log(res.data.token));
+    });
   };
 
   return (
     <div>
       <h2>Sign Up</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           placeholder="email"
           type="email"

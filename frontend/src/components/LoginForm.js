@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import axios from "axios";
 import qs from "qs";
 import { Link } from "react-router-dom";
 
 require("dotenv").config();
 
-const AUTH_LOGIN_ADDRESS = process.env.LOGIN_URL;
+const AUTH_LOGIN_ADDRESS =
+  process.env.LOGIN_URL || "https://kbp-auth.now.sh/login";
 
 function LoginForm(props) {
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ function LoginForm(props) {
       headers: {
         "content-type": "application/x-www-form-urlencoded;charset=utf-8",
       },
-    }).then((res) => console.log(res.data.token));
+    }).then((res) => console.log(res));
   };
 
   return (
