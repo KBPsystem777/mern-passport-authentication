@@ -26,4 +26,4 @@ See the server running on http://localhost:1993
 
 - `http://localhost:1993/login` - Handles login and generates `token` when correct credentials were provided
 
-- `http://localhost:1993/user/profile?secret_token` - This serves as a protected route. Will only be accessed by logged users by passing the `secret_token` generated on the `/login` endpoint
+- `http://localhost:1993/user/profile?token` - This serves as a protected route. Will only be accessed by logged users by passing the `token` generated on the `/login` endpoint
