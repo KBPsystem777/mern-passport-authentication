@@ -4,6 +4,10 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
+require("dotenv").config();
+
+const top_secret = process.env.kbpSecretKey;
+
 router.post(
   "/signup",
   passport.authenticate("signup", {
@@ -28,7 +32,9 @@ router.post("/login", async (req, res, next) => {
         if (error) return next(error);
         const body = { _id: user._id, email: user.email };
         // signing jwt
-        const token = jwt.sign({ user: body }, "top_secret");
+        const token = jwt.sign({ user: body }, top_secret, {
+          expiresIn: "7h  ",
+        });
         // sending back the token to the user
         return res.json({
           status: "SUCCESS",
