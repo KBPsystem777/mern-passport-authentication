@@ -2,6 +2,10 @@ const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const UserModel = require("../model/model");
 
+require("dotenv").config();
+
+const top_secret = process.env.kbpSecretKey;
+
 // passport middleware for registration
 passport.use(
   "signup",
@@ -71,9 +75,9 @@ const ExtractJWT = require("passport-jwt").ExtractJwt;
 passport.use(
   new JWTStrategy(
     {
-      secretOrKey: "top_secret",
+      secretOrKey: top_secret,
       // expecting the user to sent the token as parameter
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter("secret_token"),
+      jwtFromRequest: ExtractJWT.fromUrlQueryParameter("token"),
     },
     async (token, done) => {
       try {
