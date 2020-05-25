@@ -9,7 +9,7 @@ router.get("/profile", (req, res, next) => {
   res.json({
     message: "Secured paged accessed",
     user: req.user,
-    token: req.query.secret_token,
+    token: req.query.token,
   });
 });
 

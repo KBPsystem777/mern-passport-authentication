@@ -12,6 +12,10 @@ app.use(cors());
 const DB = process.env.MONGODB_URI_PASSP || process.env.mongodb_uri_passp;
 const PORT = 1993 || process.env.PORT;
 
+app.get("/", function (req, res) {
+  res.send("Hello! you may test this Auth API via Postman or the web UI!");
+});
+
 // Establish connection to mongoose
 mongoose.connect(DB, {
   useNewUrlParser: true,
