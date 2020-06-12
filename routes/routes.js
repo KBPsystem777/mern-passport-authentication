@@ -8,6 +8,7 @@ require("dotenv").config();
 
 const top_secret = process.env.kbpSecretKey;
 
+// Sign Up Route
 router.post(
   "/signup",
   passport.authenticate("signup", {
@@ -21,8 +22,9 @@ router.post(
   }
 );
 
+// Login Route
 router.post("/login", async (req, res, next) => {
-  passport.authenticate("login", async (err, user, info) => {
+  passport.authenticate("login", {}, async (err, user, info) => {
     try {
       if (err || !user) {
         const error = new Error("An error occured!");
@@ -46,5 +48,10 @@ router.post("/login", async (req, res, next) => {
       return next(error);
     }
   })(req, res, next);
+});
+
+// LogOut Route
+router.get("/logout", function (req, res) {
+  req.logout(), res.redirect("/"), console.log(new Date() + " User Logged out");
 });
 module.exports = router;
