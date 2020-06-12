@@ -4,10 +4,16 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
 const cors = require("cors");
-const UserModel = require("./model/model");
+const morgan = require("morgan");
+
 require("dotenv").config();
 
 app.use(cors());
+
+// User Morgan for logging
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms")
+);
 
 const DB = process.env.MONGODB_URI_PASSP || process.env.mongodb_uri_passp;
 const PORT = 1993 || process.env.PORT;
@@ -38,7 +44,7 @@ const securedRoutes = require("./routes/secured-routes");
 
 app.use("/", routes);
 
-// securing routes below
+// securing "/user" and "/users" routes
 app.use(
   "/user",
   passport.authenticate("jwt", { session: false }),
