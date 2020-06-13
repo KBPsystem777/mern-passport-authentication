@@ -10,11 +10,6 @@ require("dotenv").config();
 
 app.use(cors());
 
-// User Morgan for logging
-app.use(
-  morgan(":method :url :status :res[content-length] - :response-time ms")
-);
-
 const DB = process.env.MONGODB_URI_PASSP || process.env.mongodb_uri_passp;
 const PORT = 1993 || process.env.PORT;
 
@@ -34,6 +29,13 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log(Date() + ` Database connection established!`);
 });
+
+// Use Morgan for logging
+app.use(
+  morgan(
+    ":date[web] :method :url :status :res[content-length] - :response-time ms"
+  )
+);
 
 require("./auth/auth");
 
