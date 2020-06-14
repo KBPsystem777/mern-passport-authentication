@@ -38,7 +38,7 @@ router.post("/login", async (req, res, next) => {
           const body = { _id: user._id, email: user.email };
           // signing jwt
           const token = jwt.sign({ user: body }, top_secret, {
-            expiresIn: "7h",
+            expiresIn: "12d",
           });
           // sending back the token to the user
           return res.json({
@@ -56,7 +56,11 @@ router.post("/login", async (req, res, next) => {
 
 // LogOut Route
 router.get("/logout", function (req, res) {
-  req.logout(), res.redirect("/"), console.log(new Date() + " User Logged out");
+  req.logout(), console.log(new Date() + " User Logged out");
+  return res.json({
+    logoutStatus: "SUCCESS",
+    message: "Logged out",
+  });
 });
 
 module.exports = router;
