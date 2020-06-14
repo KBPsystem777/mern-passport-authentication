@@ -57,5 +57,6 @@ router.post("/login", async (req, res, next) => {
 // LogOut Route
 router.get("/logout", function (req, res) {
   req.logout(), res.redirect("/"), console.log(new Date() + " User Logged out");
+});
 
 module.exports = router;
