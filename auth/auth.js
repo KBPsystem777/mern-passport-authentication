@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const top_secret = process.env.kbpSecretKey;
 
-// passport middleware for registration
+// Passport middleware for registration
 passport.use(
   "signup",
   new localStrategy(
@@ -16,9 +16,9 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        // save the info from the user to DB
+        // Save the info from the user to DB
         const user = await UserModel.create({ email, password });
-        // send user info to middleware
+        // Send user info to middleware
         return done(null, user);
       } catch (error) {
         done(error);
@@ -27,7 +27,7 @@ passport.use(
   )
 );
 
-// create passport middleware to handle user login
+// Create passport middleware to handle user login
 passport.use(
   "login",
   new localStrategy(
@@ -37,17 +37,17 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        //Find the user associated with the email provided by the user
+        // Find the user associated with the email provided by the user
         const user = await UserModel.findOne({ email });
         if (!user) {
-          //If the user isn't found in the database, return a message
+          // If the user isn't found in the database, return a message
           return done(null, false, {
             status: "401 - FAILED",
             message: "User not found",
           });
         }
-        //Validate password and make sure it matches with the corresponding hash stored in the database
-        //If the passwords match, it returns a value of true.
+        // Validate password and make sure it matches with the corresponding hash stored in the database
+        // If the passwords match, it returns a value of true.
         const validate = await user.isValidPassword(password);
         if (!validate) {
           return done(null, false, {
@@ -68,20 +68,20 @@ passport.use(
 );
 
 const JWTStrategy = require("passport-jwt").Strategy;
-// extract JWT from the user
+// Extract JWT from the user
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 
-// verify if token from the user us valid
+// Verify if token from the user us valid
 passport.use(
   new JWTStrategy(
     {
       secretOrKey: top_secret,
-      // expecting the user to sent the token as parameter
+      // Expecting the user to sent the token as parameter
       jwtFromRequest: ExtractJWT.fromUrlQueryParameter("token"),
     },
     async (token, done) => {
       try {
-        // pass the user details to the middleware
+        // Pass the user details to the middleware
         return done(null, token.user);
       } catch (error) {
         done(error);
